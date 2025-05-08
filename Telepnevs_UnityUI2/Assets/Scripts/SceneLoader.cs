@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadSceneByIndex(int sceneIndex)
     {
-        SceneManager.LoadScene(sceneIndex); // 0 = первая сцена, 1 = вторая и т.д.
+        SceneManager.LoadScene(sceneIndex);
     }
 
 }
