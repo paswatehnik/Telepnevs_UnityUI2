@@ -1,27 +1,49 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SizeController : MonoBehaviour
 {
-    public Slider sizeSlider;
-    public GameObject character;
-    public Text sizeText;
+    public Slider widthSlider;
+    public Slider heightSlider;
+    public Transform characterTransform;
+    public TMP_Text widthText;
+    public TMP_Text heightText;
+
+    private Vector3 originalScale;
 
     void Start()
     {
-        sizeSlider.onValueChanged.AddListener(ChangeSize);
-        UpdateSizeText(sizeSlider.value);
+        originalScale = characterTransform.localScale;
+
+        widthSlider.onValueChanged.AddListener(UpdateWidth);
+        heightSlider.onValueChanged.AddListener(UpdateHeight);
+
+        UpdateWidth(widthSlider.value);
+        UpdateHeight(heightSlider.value);
     }
 
-    void ChangeSize(float newSize)
+    void UpdateWidth(float value)
     {
-        character.transform.localScale = new Vector3(newSize, newSize, newSize);
-        if (sizeText != null)
-            UpdateSizeText(newSize);
+        characterTransform.localScale = new Vector3(
+            originalScale.x * value,
+            characterTransform.localScale.y,
+            characterTransform.localScale.z
+        );
+
+        if (widthText != null)
+            widthText.text = $"Ширина: {value:F1}x";
     }
 
-    void UpdateSizeText(float value)
+    void UpdateHeight(float value)
     {
-        sizeText.text = "Размер: " + (value * 100).ToString("0") + "%";
+        characterTransform.localScale = new Vector3(
+            characterTransform.localScale.x,
+            originalScale.y * value,
+            characterTransform.localScale.z
+        );
+
+        if (heightText != null)
+            heightText.text = $"Высота: {value:F1}x";
     }
 }
