@@ -30,6 +30,11 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         
         _canvasGroup.blocksRaycasts = false;
         transform.SetParent(transform.root);
+        
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayDragStart();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -40,7 +45,7 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+     public void OnEndDrag(PointerEventData eventData)
     {
         _canvasGroup.blocksRaycasts = true;
         
@@ -49,11 +54,15 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             transform.SetParent(_startParent);
             _rectTransform.anchoredPosition = _startPosition;
         }
-        
-        if (ItemSelectionManager.Instance != null)
+        else
         {
-            ItemSelectionManager.Instance.SelectObject(gameObject);
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlayDrop();
+            }
         }
+        
+        ItemSelectionManager.Instance?.SelectObject(gameObject);
     }
 }
 
