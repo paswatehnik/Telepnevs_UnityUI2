@@ -5,11 +5,9 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    [Header("Фоновая музыка")]
     [SerializeField] private AudioClip backgroundMusic;
     [Range(0f, 1f)] public float musicVolume = 0.5f;
 
-    [Header("Звуки UI")]
     [SerializeField] private AudioClip buttonClickSound;
     [SerializeField] private AudioClip dragStartSound;
     [SerializeField] private AudioClip dropSound;
