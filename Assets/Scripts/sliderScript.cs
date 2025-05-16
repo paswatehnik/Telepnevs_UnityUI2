@@ -8,6 +8,11 @@ public class ScaleSliderController : MonoBehaviour
     private void Start()
     {
         scaleSlider.onValueChanged.AddListener(OnScaleChanged);
+
+        if (ItemSelectionManager.Instance != null)
+        {
+            ItemSelectionManager.Instance.scaleSliderController = this;
+        }
     }
 
     private void OnScaleChanged(float value)
@@ -16,5 +21,10 @@ public class ScaleSliderController : MonoBehaviour
         {
             ItemSelectionManager.Instance.selectedObject.transform.localScale = Vector3.one * value;
         }
+    }
+
+    public void SetSliderValue(float value)
+    {
+        scaleSlider.value = value;
     }
 }

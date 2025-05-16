@@ -27,10 +27,10 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         _startPosition = _rectTransform.anchoredPosition;
         _startParent = transform.parent;
-        
+
         _canvasGroup.blocksRaycasts = false;
         transform.SetParent(transform.root);
-        
+
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.PlayDragStart();
